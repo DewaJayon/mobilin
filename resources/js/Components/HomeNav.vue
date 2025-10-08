@@ -44,7 +44,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Beranda
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('catalog')"
                         :class="[
                             'font-medium transition-all duration-300 hover:scale-105',
                             route().current('catalog')

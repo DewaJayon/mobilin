@@ -6,16 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class HomeController extends Controller
+class CatalogController extends Controller
 {
 
     /**
-     * Index page
-     *
-     * @return \Inertia\Response
+     * Display the catalog view.
      */
     public function index()
     {
-        return Inertia::render('Home/Index');
+        return Inertia::render('Catalog/Index');
     }
 }
