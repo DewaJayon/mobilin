@@ -1,5 +1,6 @@
 <script setup>
 import { Button } from "@/Components/ui/button";
+import { Link } from "@inertiajs/vue3";
 import { MoveRight, Phone } from "lucide-vue-next";
 </script>
 
@@ -24,23 +25,23 @@ import { MoveRight, Phone } from "lucide-vue-next";
                 <p
                     class="text-xl md:text-2xl mb-12 text-white max-w-3xl mx-auto leading-relaxed"
                 >
-                    Sewa mobil berkualitas dengan harga terjangkau untuk
-                    perjalanan bisnis Anda.
-                    <br />
-                    Pengalaman rental yang tak pernah terlupakan menanti Anda.
+                    Nikmati perjalanan yang nyaman dengan armada mobil terbaik
+                    kami. Proses cepat, harga terjangkau, dan layanan 24/7.
                 </p>
             </div>
 
             <div
                 class="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-                <Button
-                    size="lg"
-                    class="group bg-white text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
-                >
-                    Lihat Katalog
-                    <MoveRight class="h-4 w-4" />
-                </Button>
+                <Link :href="route('catalog')">
+                    <Button
+                        size="lg"
+                        class="group bg-white text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
+                    >
+                        Lihat Katalog
+                        <MoveRight class="h-4 w-4" />
+                    </Button>
+                </Link>
                 <Button
                     variant="outline"
                     size="lg"

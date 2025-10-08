@@ -4,7 +4,7 @@ import HomeNav from "@/Components/HomeNav.vue";
 </script>
 
 <template>
-    <div class="min-h-screen dark:bg-zinc-800">
+    <div class="min-h-screen dark:bg-zinc-800 bg-zinc-100">
         <HomeNav />
         <slot />
         <HomeFooter />
