@@ -16,7 +16,10 @@ import { Link } from "@inertiajs/vue3";
                     <h4 class="font-semibold mb-4">Perusahaan</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li>
-                            <Link href="#" class="hover:text-white transition">
+                            <Link
+                                :href="route('about')"
+                                class="hover:text-white transition"
+                            >
                                 Tentang Kami
                             </Link>
                         </li>

@@ -55,7 +55,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Katalog
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('about')"
                         :class="[
                             'font-medium transition-all duration-300 hover:scale-105',
                             route().current('about')
@@ -66,7 +66,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Tentang
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('contact')"
                         :class="[
                             'font-medium transition-all duration-300 hover:scale-105',
                             route().current('contact')
@@ -128,7 +128,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Beranda
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('catalog')"
                         :class="[
                             'block font-medium transition-colors',
                             route().current('catalog')
@@ -140,7 +140,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Katalog
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('about')"
                         :class="[
                             'block font-medium transition-colors',
                             route().current('about')
@@ -152,7 +152,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                         Tentang
                     </Link>
                     <Link
-                        href="#"
+                        :href="route('contact')"
                         :class="[
                             'block font-medium transition-colors',
                             route().current('contact')
