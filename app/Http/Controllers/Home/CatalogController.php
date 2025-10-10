@@ -89,10 +89,10 @@ class CatalogController extends Controller
                     $cars->orderBy('price_per_day', 'desc');
                     break;
                 case 'year-asc':
-                    $cars->orderBy('year', 'desc');
+                    $cars->orderBy('year', 'asc');
                     break;
                 case 'year-desc':
-                    $cars->orderBy('year', 'asc');
+                    $cars->orderBy('year', 'desc');
                     break;
                 default:
                     $cars->latest();

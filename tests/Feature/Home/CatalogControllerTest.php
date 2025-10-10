@@ -118,3 +118,49 @@ test('catalog can be sorted by price ascending', function () {
             ->where('cars.data.0.price_per_day', 300000)
     );
 });
+
+test('catalog can be sorted by price descending', function () {
+    Car::factory()->create(['brand' => 'Honda', 'price_per_day' => 300000]);
+    Car::factory()->create(['brand' => 'Mazda', 'price_per_day' => 800000]);
+    $this->car->update(['price_per_day' => 500000]);
+
+    $response = get(route('catalog', ['sort' => 'price-desc']));
+
+    $response->assertInertia(
+        fn(AssertableInertia $page) =>
+        $page->has('cars.data')
+            ->where('cars.data.0.price_per_day', 800000)
+    );
+});
+
+test('catalog can be sorted by year ascending', function () {
+    Car::query()->delete();
+
+    Car::factory()->create(['brand' => 'Honda', 'year' => 2000]);
+    Car::factory()->create(['brand' => 'Mazda', 'year' => 2010]);
+    Car::factory()->create(['year' => 2005]);
+
+    $response = get(route('catalog', ['sort' => 'year-asc']));
+
+    $response->assertInertia(
+        fn(AssertableInertia $page) =>
+        $page->has('cars.data')
+            ->where('cars.data.0.year', 2000)
+    );
+});
+
+test('catalog can be sorted by year descending', function () {
+    Car::query()->delete();
+
+    Car::factory()->create(['brand' => 'Honda', 'year' => 2000]);
+    Car::factory()->create(['brand' => 'Mazda', 'year' => 2010]);
+    Car::factory()->create(['year' => 2005]);
+
+    $response = get(route('catalog', ['sort' => 'year-desc']));
+
+    $response->assertInertia(
+        fn(AssertableInertia $page) =>
+        $page->has('cars.data')
+            ->where('cars.data.0.year', 2010)
+    );
+});
