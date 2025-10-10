@@ -14,6 +14,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
+Route::post('/kontak/send', [ContactController::class, 'send'])->name('contact.send');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

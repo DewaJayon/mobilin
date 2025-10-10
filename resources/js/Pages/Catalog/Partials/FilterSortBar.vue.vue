@@ -55,7 +55,8 @@ const shorts = [
     { value: "all-short", label: "Semua" },
     { value: "price-asc", label: "Harga Terendah" },
     { value: "price-desc", label: "Harga Tertinggi" },
-    { value: "year-asc", label: "Tahun Terbaru" },
+    { value: "year-asc", label: "Tahun Terlama" },
+    { value: "year-desc", label: "Tahun Terbaru" },
 ];
 
 const sort = ref(filters.sort);

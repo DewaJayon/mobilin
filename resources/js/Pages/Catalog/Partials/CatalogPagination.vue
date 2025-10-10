@@ -39,7 +39,10 @@ const pagination = computed(() => props.carsPagination);
                     :is-active="item.value === page"
                     :disabled="item.value === page"
                     @click="
-                        $inertia.get(route('catalog'), { page: item.value })
+                        $inertia.get(route('catalog'), {
+                            ...route().params,
+                            page: item.value,
+                        })
                     "
                 >
                     {{ item.value }}

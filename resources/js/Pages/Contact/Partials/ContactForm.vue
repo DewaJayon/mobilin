@@ -15,6 +15,8 @@ import {
 } from "@/Components/ui/select";
 import { Button } from "@/Components/ui/button";
 import { Spinner } from "@/Components/ui/spinner";
+import { useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const subjects = [
     {
@@ -38,6 +40,33 @@ const subjects = [
         label: "Lainnya",
     },
 ];
+
+const form = useForm({
+    name: "",
+    email: "",
+    telephone: "",
+    subject: "",
+    message: "",
+});
+
+const showAlertSuccess = ref(false);
+
+const sendEmail = () => {
+    form.post(route("contact.send"), {
+        onSuccess: () => {
+            form.reset();
+            showAlertSuccess.value = true;
+
+            setTimeout(() => {
+                showAlertSuccess.value = false;
+            }, 5000);
+        },
+
+        preserveScroll: true,
+        preserveState: true,
+        showProgress: false,
+    });
+};
 </script>
 
 <template>
@@ -50,7 +79,10 @@ const subjects = [
                 Isi formulir di bawah ini dan kami akan segera menghubungi Anda
             </p>
 
-            <Alert class="mb-6 border-green-600 bg-green-50 dark:bg-zinc-800">
+            <Alert
+                class="mb-6 border-green-600 bg-green-50 dark:bg-zinc-800"
+                v-if="showAlertSuccess"
+            >
                 <div class="flex gap-3 items-center">
                     <CheckCircle2
                         class="w-6 h-6 text-green-700 flex-shrink-0"
@@ -65,7 +97,7 @@ const subjects = [
                 </div>
             </Alert>
 
-            <form class="space-y-6">
+            <form class="space-y-6" @submit.prevent="sendEmail">
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <Label
@@ -80,6 +112,7 @@ const subjects = [
                             required
                             class="p-6"
                             placeholder="John Doe"
+                            v-model="form.name"
                         />
                     </div>
 
@@ -96,6 +129,7 @@ const subjects = [
                             required
                             class="p-6"
                             placeholder="john@example.com"
+                            v-model="form.email"
                         />
                     </div>
                 </div>
@@ -114,6 +148,7 @@ const subjects = [
                             required
                             class="p-6 [&::-webkit-inner-spin-button]:appearance-none"
                             placeholder="+62 812-3456-7890"
+                            v-model="form.telephone"
                         />
                     </div>
 
@@ -124,7 +159,7 @@ const subjects = [
                         >
                             Subjek *
                         </Label>
-                        <Select>
+                        <Select v-model="form.subject">
                             <SelectTrigger class="w-full p-6">
                                 <SelectValue placeholder="Pilih Subjek" />
                             </SelectTrigger>
@@ -134,7 +169,7 @@ const subjects = [
                                     <SelectItem
                                         v-for="(item, index) in subjects"
                                         :key="index"
-                                        :value="item.value"
+                                        :value="item.label"
                                         class="capitalize cursor-pointer"
                                     >
                                         {{ item.label }}
@@ -153,6 +188,7 @@ const subjects = [
                         Pesan *
                     </Label>
                     <textarea
+                        v-model="form.message"
                         id="message"
                         required
                         rows="6"
@@ -164,7 +200,7 @@ const subjects = [
                 <Button
                     class="w-full bg-blue-600 text-white py-6 rounded-lg hover:bg-blue-700 transition font-semibold text-lg disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                    <template v-if="true">
+                    <template v-if="!form.processing">
                         Kirim Pesan
                         <ArrowRightIcon class="w-5 h-5" />
                     </template>
