@@ -1,12 +1,24 @@
 <script setup>
 import { Button } from "@/Components/ui/button";
 import CarCard from "@/Pages/Home/Partials/CarCard.vue";
+import { router } from "@inertiajs/vue3";
+
+const props = defineProps({
+    cars: {
+        type: Object,
+        required: true,
+    },
+});
+
+const resetAllFilters = () => {
+    router.get(route("catalog"));
+};
 </script>
 
 <template>
-    <template v-if="true">
+    <template v-if="cars.length">
         <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <CarCard v-for="i in 6" :key="i" />
+            <CarCard v-for="car in cars" :key="car.id" :car="car" />
         </div>
     </template>
 
@@ -37,6 +49,7 @@ import CarCard from "@/Pages/Home/Partials/CarCard.vue";
             </p>
 
             <Button
+                @click="resetAllFilters"
                 class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold p-6"
             >
                 Reset Semua Filter

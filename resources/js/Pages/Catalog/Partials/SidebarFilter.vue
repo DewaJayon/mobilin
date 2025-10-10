@@ -5,18 +5,71 @@ import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
 import { Search } from "lucide-vue-next";
 
-import { ref } from "vue";
-import { Slider } from "@/Components/ui/slider";
-import { formatPrice } from "@/lib/utils";
-import { Separator } from "@/Components/ui/separator";
+import { computed, ref, watch } from "vue";
+import { Link, router, usePage } from "@inertiajs/vue3";
 
-const price = ref([1000000]);
+const props = defineProps({
+    transmissions: {
+        type: Object,
+    },
+    fuels: {
+        type: Object,
+    },
+    categories: {
+        type: Object,
+    },
+});
 
-const categories = ["sedan", "suv", "mpv"];
+const page = usePage();
+const currentQuery = page.props.filters || {};
 
-const transmissions = ["manual", "automatic"];
+const categoryList = computed(() => {
+    if (props.categories?.data) {
+        return props.categories.data;
+    }
 
-const fuels = ["bensin", "diesel", "listrik"];
+    return props.categories;
+});
+
+const hadleResetAllFilter = () => {
+    router.get(route("catalog"), {}, { preserveState: true, replace: true });
+};
+
+const UrlParams = new URLSearchParams(window.location.search);
+
+const search = ref(UrlParams.get("search") ?? "");
+const transmission = ref(UrlParams.get("transmission") ?? "all-transmision");
+const fuel = ref(UrlParams.get("fuel") ?? "all-fuel");
+const category = ref(UrlParams.get("category") ?? "all-category");
+
+watch(
+    [transmission, fuel, search, category],
+    ([newTransmission, newFuel, newSearch, newCategory]) => {
+        if (newTransmission === "") newTransmission = null;
+        if (newFuel === "") newFuel = null;
+        if (newSearch === "") newSearch = null;
+        if (newCategory === "") newCategory = null;
+
+        const params = {
+            search: newSearch,
+            transmission: newTransmission,
+            fuel: newFuel,
+            category: newCategory,
+        };
+
+        const currentParams = new URLSearchParams(window.location.search);
+
+        if (currentParams.has("all")) {
+            params.all = currentParams.get("all");
+        }
+
+        router.get(route("catalog"), params, {
+            preserveState: true,
+            replace: true,
+        });
+    },
+    { flush: "post" }
+);
 </script>
 
 <template>
@@ -28,7 +81,12 @@ const fuels = ["bensin", "diesel", "listrik"];
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">
                     Filter
                 </h2>
-                <Button variant="ghost" size="sm" class="text-sm text-blue-500">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    class="text-sm text-blue-500"
+                    @click="hadleResetAllFilter"
+                >
                     Reset
                 </Button>
             </div>
@@ -45,6 +103,7 @@ const fuels = ["bensin", "diesel", "listrik"];
                         type="text"
                         placeholder="Search..."
                         class="pl-10"
+                        v-model="search"
                     />
                     <span
                         class="absolute start-0 inset-y-0 flex items-center justify-center px-2"
@@ -61,41 +120,67 @@ const fuels = ["bensin", "diesel", "listrik"];
                     Kategori
                 </label>
                 <div class="space-y-2">
-                    <RadioGroup default-value="all">
+                    <RadioGroup default-value="all-category" v-model="category">
                         <div class="flex items-center space-x-2">
                             <RadioGroupItem
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                                id="all"
-                                value="all"
+                                id="all-category"
+                                value="all-category"
                             />
-                            <Label for="all">Semua Kategori</Label>
+                            <Label for="all-category">Semua Kategori</Label>
                         </div>
                         <div
                             class="flex items-center space-x-2"
-                            v-for="(category, index) in categories"
+                            v-for="(category, index) in categoryList"
                             :key="index"
                         >
                             <RadioGroupItem
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                                :id="category"
-                                :value="category"
+                                :id="category.slug"
+                                :value="category.slug"
                             />
-                            <Label :for="category" class="capitalize">
-                                {{ category }}
+                            <Label :for="category.slug" class="capitalize">
+                                {{ category.name }}
                             </Label>
                         </div>
                     </RadioGroup>
+                    <div
+                        class="h-px bg-gray-200 dark:bg-gray-800 text-muted-foreground text-sm my-3"
+                    >
+                        <Button
+                            asChild
+                            variant="link"
+                            size="sm"
+                            class="text-blue-500"
+                        >
+                            <Link
+                                :href="
+                                    route('catalog', {
+                                        ...currentQuery,
+                                        all: true,
+                                    })
+                                "
+                                preserve-state
+                                preserve-scroll
+                            >
+                                Tampilkan Semua Kategori
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
             </div>
 
             <div class="mb-6">
                 <label
-                    class="block text-sm font-semibold text-gray-700 mb-3 dark:text-white"
+                    class="block text-sm font-semibold text-gray-700 mb-3 dark:text-white mt-3"
                 >
                     Transmisi
                 </label>
                 <div class="space-y-2">
-                    <RadioGroup default-value="all-transmision">
+                    <RadioGroup
+                        default-value="all-transmision"
+                        v-model="transmission"
+                    >
                         <div class="flex items-center space-x-2">
                             <RadioGroupItem
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
@@ -110,12 +195,12 @@ const fuels = ["bensin", "diesel", "listrik"];
                             :key="index"
                         >
                             <RadioGroupItem
+                                :id="transmission.value"
+                                :value="transmission.value"
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                                :id="transmission"
-                                :value="transmission"
                             />
-                            <Label :for="transmission" class="capitalize">
-                                {{ transmission }}
+                            <Label :for="transmission.value" class="capitalize">
+                                {{ transmission.label }}
                             </Label>
                         </div>
                     </RadioGroup>
@@ -129,7 +214,7 @@ const fuels = ["bensin", "diesel", "listrik"];
                     Bahan Bakar
                 </label>
                 <div class="space-y-2">
-                    <RadioGroup default-value="all-fuel">
+                    <RadioGroup default-value="all-fuel" v-model="fuel">
                         <div class="flex items-center space-x-2">
                             <RadioGroupItem
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
@@ -145,40 +230,14 @@ const fuels = ["bensin", "diesel", "listrik"];
                         >
                             <RadioGroupItem
                                 class="data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
-                                :id="fuel"
-                                :value="fuel"
+                                :id="fuel.value"
+                                :value="fuel.value"
                             />
-                            <Label :for="fuel" class="capitalize">
-                                {{ fuel }}
+                            <Label :for="fuel.value" class="capitalize">
+                                {{ fuel.label }}
                             </Label>
                         </div>
                     </RadioGroup>
-                </div>
-            </div>
-
-            <div class="mb-6">
-                <label
-                    class="block text-sm font-semibold text-gray-700 mb-3 dark:text-white"
-                >
-                    Harga per Hari (Rp)
-                </label>
-
-                <div class="space-y-3">
-                    <Slider
-                        v-model="price"
-                        :max="2000000"
-                        :step="50000"
-                        class="w-full"
-                    />
-
-                    <div class="flex items-center justify-between text-sm">
-                        <span class="text-gray-600 dark:text-gray-300">
-                            Rp 0
-                        </span>
-                        <span class="font-semibold text-blue-600">
-                            {{ formatPrice(price[0]) }}
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>

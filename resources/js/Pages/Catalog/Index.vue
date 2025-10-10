@@ -6,6 +6,29 @@ import SidebarFilter from "./Partials/SidebarFilter.vue";
 import FilterSortBarVue from "./Partials/FilterSortBar.vue.vue";
 import CarList from "./Partials/CarList.vue";
 import CatalogPagination from "./Partials/CatalogPagination.vue";
+import { computed } from "vue";
+
+const props = defineProps({
+    categories: {
+        type: Object,
+        required: true,
+    },
+    fuels: {
+        type: Object,
+        required: true,
+    },
+    transmissions: {
+        type: Object,
+        required: true,
+    },
+    cars: {
+        type: Object,
+        required: true,
+    },
+});
+
+const carsPagination = computed(() => props.cars);
+const cars = computed(() => props.cars.data);
 </script>
 
 <template>
@@ -48,12 +71,18 @@ import CatalogPagination from "./Partials/CatalogPagination.vue";
                     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-16 relative"
                 >
                     <div class="flex flex-col lg:flex-row gap-8">
-                        <SidebarFilter />
+                        <SidebarFilter
+                            :fuels="props.fuels"
+                            :transmissions="props.transmissions"
+                            :categories="props.categories"
+                        />
                         <main
                             class="flex-1 p-3 border border-dashed border-zinc-400/40 dark:border-zinc-600 border-t-0 border-b-0 -mt-3"
                         >
-                            <FilterSortBarVue />
-                            <CarList />
+                            <FilterSortBarVue
+                                :car-pagination="carsPagination"
+                            />
+                            <CarList :cars="cars" />
                         </main>
                     </div>
 
@@ -63,7 +92,7 @@ import CatalogPagination from "./Partials/CatalogPagination.vue";
                 </div>
 
                 <div class="w-full flex justify-center py-3">
-                    <CatalogPagination />
+                    <CatalogPagination :cars-pagination="carsPagination" />
                 </div>
             </div>
         </div>

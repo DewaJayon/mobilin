@@ -42,14 +42,16 @@ import { MoveRight, Phone } from "lucide-vue-next";
                         <MoveRight class="h-4 w-4" />
                     </Button>
                 </Link>
-                <Button
-                    variant="outline"
-                    size="lg"
-                    class="border bg-transparent hover:text-blue-600 dark:border-white dark:text-white group dark:hover:text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
-                >
-                    Hubungi Kami
-                    <Phone class="h-4 w-4" />
-                </Button>
+                <Link :href="route('contact')">
+                    <Button
+                        variant="outline"
+                        size="lg"
+                        class="border bg-transparent hover:text-blue-600 dark:border-white dark:text-white group dark:hover:text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl"
+                    >
+                        Hubungi Kami
+                        <Phone class="h-4 w-4" />
+                    </Button>
+                </Link>
             </div>
 
             <div
