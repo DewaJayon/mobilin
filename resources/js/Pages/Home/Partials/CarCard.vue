@@ -25,7 +25,14 @@ const props = defineProps({
         <CardHeader class="p-0">
             <div class="relative h-56 overflow-hidden bg-gray-200">
                 <img
+                    v-if="car.image"
                     :src="car.image"
+                    :alt="car.model"
+                    class="w-full h-full object-cover"
+                />
+
+                <img
+                    src="/img/Mobilin-Logo.png"
                     :alt="car.model"
                     class="w-full h-full object-cover"
                 />
