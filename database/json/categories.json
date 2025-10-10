@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "name": "SUV",
+        "description": "Sport Utility Vehicle — cocok untuk keluarga dan perjalanan jauh."
+    },
+    {
+        "id": 2,
+        "name": "Sedan",
+        "description": "Mobil dengan kenyamanan tinggi dan desain elegan."
+    },
+    {
+        "id": 3,
+        "name": "Hatchback",
+        "description": "Mobil kecil dan efisien untuk penggunaan kota."
+    },
+    {
+        "id": 4,
+        "name": "MPV",
+        "description": "Multi Purpose Vehicle — kapasitas besar untuk keluarga."
+    },
+    {
+        "id": 5,
+        "name": "Electric",
+        "description": "Mobil listrik ramah lingkungan dan hemat energi."
+    },
+    {
+        "id": 6,
+        "name": "Convertible",
+        "description": "Mobil dengan atap yang bisa dibuka, cocok untuk berlibur."
+    },
+    {
+        "id": 7,
+        "name": "Pickup",
+        "description": "Mobil truk ringan, cocok untuk angkut barang."
+    },
+    {
+        "id": 8,
+        "name": "Coupe",
+        "description": "Mobil 2 pintu dengan desain sporty."
+    },
+    {
+        "id": 9,
+        "name": "Van",
+        "description": "Mobil besar untuk transportasi penumpang atau barang."
+    },
+    {
+        "id": 10,
+        "name": "Crossover",
+        "description": "Gabungan SUV dan hatchback, nyaman dan efisien."
+    }
+]

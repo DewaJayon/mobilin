@@ -18,15 +18,21 @@ class BookingFactory extends Factory
      */
     public function definition(): array
     {
+
+        $startDate = $this->faker->dateTimeBetween('-1 month', '+1 month');
+        $endDate = (clone $startDate)->modify('+' . rand(1, 7) . ' days');
+
+        $car = Car::inRandomOrder()->first();
+
         return [
-            'user_id'           => User::factory(),
-            'car_id'            => Car::factory(),
-            'start_date'        => fake()->date(),
-            'end_date'          => fake()->date(),
-            'total_price'       => fake()->randomFloat(2, 300000, 1500000),
-            'status'            => fake()->randomElement(['pending', 'ongoing', 'confirmed', 'cancelled', 'returned']),
-            'payment_status'    => fake()->randomElement(['unpaid', 'paid', 'refunded']),
-            'notes'             => fake()->text(),
+            'user_id'           => User::inRandomOrder()->first()->id,
+            'car_id'            => $car ? $car->id : Car::factory(),
+            'start_date'        => $startDate->format('Y-m-d'),
+            'end_date'          => $endDate->format('Y-m-d'),
+            'total_price'       => $car ? $car->price_per_day * rand(1, 7) : rand(500000, 1500000),
+            'status'            => $this->faker->randomElement(['pending', 'confirmed', 'ongoing', 'returned', 'cancelled']),
+            'payment_status'    => $this->faker->randomElement(['unpaid', 'paid', 'refunded']),
+            'notes'             => $this->faker->optional()->text(),
         ];
     }
 }

@@ -27,6 +27,9 @@ class CarFactory extends Factory
             'status'        => fake()->randomElement(['available', 'rented', 'maintenance']),
             'image'         => 'https://dummyimage.com/640x480/FFF.png&text=Car+Image',
             'description'   => fake()->text(),
+            'fuel_type'     => fake()->randomElement(['bensin', 'diesel', 'listrik']),
+            'transmission'  => fake()->randomElement(['manual', 'automatic']),
+            'seats'         => fake()->randomDigit(),
         ];
     }
 }

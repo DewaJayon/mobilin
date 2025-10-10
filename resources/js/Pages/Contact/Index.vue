@@ -24,7 +24,7 @@ import FaqSection from "./Partials/FaqSection.vue";
             <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto">
                     <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                        Hubungi Kam
+                        Hubungi Kami
                     </h1>
                     <p class="text-xl text-gray-200">
                         Tim kami siap membantu Anda 24/7. Jangan ragu untuk

@@ -18,3 +18,13 @@ export const formatPrice = (price) =>
         currency: "IDR",
         minimumFractionDigits: 0,
     }).format(price);
+
+export function getCurrentUrlQuery(exclude = []) {
+    const params = Object.fromEntries(
+        new URLSearchParams(window.location.search)
+    );
+    exclude.forEach((key) => {
+        delete params[key];
+    });
+    return params;
+}

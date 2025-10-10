@@ -1,0 +1,102 @@
+[
+    {
+        "user_id": 1,
+        "car_id": 1,
+        "start_date": "2025-10-01",
+        "end_date": "2025-10-03",
+        "total_price": 2850000,
+        "status": "confirmed",
+        "payment_status": "paid",
+        "notes": "Customer minta extra driver"
+    },
+    {
+        "user_id": 2,
+        "car_id": 5,
+        "start_date": "2025-10-05",
+        "end_date": "2025-10-08",
+        "total_price": 3600000,
+        "status": "ongoing",
+        "payment_status": "paid",
+        "notes": "Mobil listrik, charger disediakan"
+    },
+    {
+        "user_id": 3,
+        "car_id": 12,
+        "start_date": "2025-10-10",
+        "end_date": "2025-10-12",
+        "total_price": 1140000,
+        "status": "pending",
+        "payment_status": "unpaid",
+        "notes": ""
+    },
+    {
+        "user_id": 4,
+        "car_id": 7,
+        "start_date": "2025-10-02",
+        "end_date": "2025-10-05",
+        "total_price": 2760000,
+        "status": "cancelled",
+        "payment_status": "refunded",
+        "notes": "Customer batal mendadak"
+    },
+    {
+        "user_id": 5,
+        "car_id": 20,
+        "start_date": "2025-10-06",
+        "end_date": "2025-10-09",
+        "total_price": 3750000,
+        "status": "confirmed",
+        "payment_status": "paid",
+        "notes": "Permintaan kursi bayi"
+    },
+    {
+        "user_id": 6,
+        "car_id": 3,
+        "start_date": "2025-10-08",
+        "end_date": "2025-10-10",
+        "total_price": 1760000,
+        "status": "ongoing",
+        "payment_status": "paid",
+        "notes": ""
+    },
+    {
+        "user_id": 7,
+        "car_id": 15,
+        "start_date": "2025-10-01",
+        "end_date": "2025-10-04",
+        "total_price": 1560000,
+        "status": "returned",
+        "payment_status": "paid",
+        "notes": "Mobil dikembalikan tepat waktu"
+    },
+    {
+        "user_id": 8,
+        "car_id": 8,
+        "start_date": "2025-10-03",
+        "end_date": "2025-10-06",
+        "total_price": 2640000,
+        "status": "pending",
+        "payment_status": "unpaid",
+        "notes": "Customer ingin test drive dulu"
+    },
+    {
+        "user_id": 9,
+        "car_id": 2,
+        "start_date": "2025-10-07",
+        "end_date": "2025-10-09",
+        "total_price": 1960000,
+        "status": "confirmed",
+        "payment_status": "paid",
+        "notes": ""
+    },
+    {
+        "user_id": 10,
+        "car_id": 6,
+        "start_date": "2025-10-10",
+        "end_date": "2025-10-13",
+        "total_price": 2940000,
+        "status": "ongoing",
+        "payment_status": "paid",
+        "notes": "Booking untuk liburan keluarga"
+    }
+]
