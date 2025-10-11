@@ -1,6 +1,6 @@
 <script setup>
 import { Button } from "@/Components/ui/button";
-import CarCard from "@/Pages/Home/Partials/CarCard.vue";
+import CarCard from "@/Components/CarCard.vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({

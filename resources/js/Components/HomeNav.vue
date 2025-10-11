@@ -81,6 +81,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                 <!-- Desktop Right -->
                 <div class="items-center space-x-2 hidden sm:flex">
                     <Button
+                        @click="$inertia.visit(route('contact'))"
                         class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl dark:shadow-none dark:hover:shadow-lg"
                     >
                         Hubungi Kami
@@ -169,7 +170,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                     >
                         <Button
                             class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-md"
-                            @click="toggleOpen(false)"
+                            @click="$inertia.visit(route('contact'))"
                         >
                             Hubungi Kami
                         </Button>
