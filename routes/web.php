@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 require __DIR__ . '/auth.php';
 
+// Landing Pages Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about');

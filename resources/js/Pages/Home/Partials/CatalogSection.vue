@@ -1,6 +1,6 @@
 <script setup>
 import { Separator } from "@/Components/ui/separator";
-import CarCard from "./CarCard.vue";
+import CarCard from "@/Components/CarCard.vue";
 import { Button } from "@/Components/ui/button";
 import { ChevronRight } from "lucide-vue-next";
 import { Link } from "@inertiajs/vue3";
