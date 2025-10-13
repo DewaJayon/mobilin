@@ -30,6 +30,7 @@ import CatalogSection from "./Partials/CatalogSection.vue";
                     ini
                 </p>
                 <Button
+                    @click="$inertia.visit(route('catalog'))"
                     class="bg-white text-blue-600 px-8 py-4 rounded-lg hover:bg-gray-100 transition font-semibold text-lg shadow-lg p-6"
                 >
                     Sewa Sekarang
