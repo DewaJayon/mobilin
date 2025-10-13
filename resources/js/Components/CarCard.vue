@@ -1,14 +1,23 @@
 <script setup>
 import { Button } from "@/Components/ui/button";
 import { Badge } from "@/Components/ui/badge";
+import { formatPrice } from "@/lib/utils";
+
+import { Cog, Fuel, MoveRight, UsersRound, Zap } from "lucide-vue-next";
+
 import {
     Card,
     CardContent,
     CardFooter,
     CardHeader,
 } from "@/Components/ui/card";
-import { Cog, Fuel, MoveRight, UsersRound } from "lucide-vue-next";
-import { formatPrice } from "@/lib/utils";
+
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTrigger,
+} from "@/Components/ui/dialog";
 
 const props = defineProps({
     car: {
@@ -118,10 +127,170 @@ const props = defineProps({
         </CardContent>
 
         <CardFooter>
-            <Button class="w-full py-6 absolute bottom-0 left-0 right-0">
-                <span>Lihat Detail</span>
-                <MoveRight class="h-4 w-4" />
-            </Button>
+            <Dialog>
+                <DialogTrigger as-child>
+                    <Button
+                        class="w-full py-6 absolute bottom-0 left-0 right-0"
+                    >
+                        <span>Lihat Detail</span>
+                        <MoveRight class="h-4 w-4" />
+                    </Button>
+                </DialogTrigger>
+                <DialogContent
+                    class="md:max-w-2xl sm:max-w-xl lg:max-w-4xl max-w-sm rounded-md p-0 max-h-[90dvh] overflow-hidden flex flex-col"
+                >
+                    <DialogHeader class="p-0 m-0">
+                        <img
+                            :src="car.image ?? '/img/Mobilin-Logo.png'"
+                            :alt="car.model"
+                            class="object-cover w-full h-64"
+                        />
+                    </DialogHeader>
+
+                    <div class="flex-1 overflow-y-auto px-8">
+                        <div class="mb-6">
+                            <h2
+                                class="text-4xl font-bold text-gray-900 mb-2 dark:text-white"
+                            >
+                                {{ car.brand }} {{ car.model }}
+                            </h2>
+                            <p class="text-gray-500 text-lg dark:text-gray-300">
+                                Tahun {{ car.year }}
+                            </p>
+                        </div>
+
+                        <div
+                            class="bg-blue-50 rounded-xl p-6 mb-6 dark:bg-zinc-800"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p
+                                        class="text-gray-600 mb-1 dark:text-gray-200"
+                                    >
+                                        Harga Sewa per Hari
+                                    </p>
+                                    <p class="text-4xl font-bold text-blue-600">
+                                        {{ formatPrice(car.price_per_day) }}
+                                    </p>
+                                </div>
+
+                                <Button
+                                    :disabled="car.status !== 'available'"
+                                    class="bg-blue-600 text-white px-8 py-6 rounded-lg hover:bg-blue-700 transition font-semibold text-lg"
+                                >
+                                    Sewa Sekarang
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3
+                                class="text-xl font-semibold text-gray-900 mb-3 dark:text-white"
+                            >
+                                Deskripsi
+                            </h3>
+                            <p
+                                class="text-gray-600 leading-relaxed dark:text-gray-300"
+                            >
+                                {{ car.description }}
+                            </p>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3
+                                class="text-xl font-semibold text-gray-900 mb-4 dark:text-white"
+                            >
+                                Spesifikasi
+                            </h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div
+                                    class="bg-gray-50 rounded-lg p-4 dark:bg-zinc-800"
+                                >
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <UsersRound
+                                            class="w-5 h-5 text-blue-600"
+                                        />
+                                        <span
+                                            class="text-sm text-gray-500 dark:text-gray-300"
+                                        >
+                                            Kursi
+                                        </span>
+                                    </div>
+                                    <p
+                                        class="text-xl font-bold text-gray-900 dark:text-white"
+                                    >
+                                        {{ car.seats }} Orang
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 rounded-lg p-4 dark:bg-zinc-800"
+                                >
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <Cog class="w-5 h-5 text-blue-600" />
+                                        <span
+                                            class="text-sm text-gray-500 dark:text-gray-300"
+                                        >
+                                            Transmisi
+                                        </span>
+                                    </div>
+                                    <p
+                                        class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+                                    >
+                                        {{ car.transmission }}
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="bg-gray-50 rounded-lg p-4 dark:bg-zinc-800"
+                                >
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <Zap class="w-5 h-5 text-blue-600" />
+                                        <span
+                                            class="text-sm text-gray-500 dark:text-gray-300"
+                                        >
+                                            Bahan Bakar
+                                        </span>
+                                    </div>
+                                    <p
+                                        class="text-xl font-bold text-gray-900 dark:text-white capitalize"
+                                    >
+                                        {{ car.fuel_type }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-lg p-4 dark:bg-zinc-800">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-3 h-3 rounded-full"
+                                    :class="
+                                        car.status === 'available'
+                                            ? 'bg-green-500'
+                                            : 'bg-red-500'
+                                    "
+                                />
+                                <span class="font-semibold">
+                                    {{
+                                        car.status === "available"
+                                            ? "Tersedia"
+                                            : "Tidak Tersedia"
+                                    }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-6 border-t">
+                            <p class="text-sm">
+                                * Harga sudah termasuk asuransi dasar. Untuk
+                                sewa dengan supir atau tambahan fitur lainnya,
+                                silakan hubungi customer service kami.
+                            </p>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </CardFooter>
     </Card>
 </template>
