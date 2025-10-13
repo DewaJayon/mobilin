@@ -6,6 +6,13 @@ import HomeLayout from "@/Layouts/HomeLayout.vue";
 import HeroSection from "./Partials/HeroSection.vue";
 import FeatureSection from "./Partials/FeatureSection.vue";
 import CatalogSection from "./Partials/CatalogSection.vue";
+
+const props = defineProps({
+    cars: {
+        type: Object,
+        required: true,
+    },
+});
 </script>
 
 <template>
@@ -18,7 +25,7 @@ import CatalogSection from "./Partials/CatalogSection.vue";
 
         <FeatureSection />
 
-        <CatalogSection />
+        <CatalogSection :cars="cars" />
 
         <section class="bg-blue-600 py-20 dark:bg-zinc-800">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
