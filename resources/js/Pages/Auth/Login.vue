@@ -1,8 +1,8 @@
 <script setup>
-import Checkbox from "@/Components/Checkbox.vue";
 import InputError from "@/Components/InputError.vue";
 import { Button } from "@/Components/ui/button";
 import { Card, CardContent } from "@/Components/ui/card";
+import { Checkbox } from "@/Components/ui/checkbox";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Spinner } from "@/Components/ui/spinner";

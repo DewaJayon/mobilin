@@ -4,6 +4,13 @@ import CarCard from "@/Components/CarCard.vue";
 import { Button } from "@/Components/ui/button";
 import { ChevronRight } from "lucide-vue-next";
 import { Link } from "@inertiajs/vue3";
+
+const props = defineProps({
+    cars: {
+        type: Object,
+        required: true,
+    },
+});
 </script>
 
 <template>
@@ -41,9 +48,7 @@ import { Link } from "@inertiajs/vue3";
             <div
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-                <!-- <CarCard v-for="i in 6" :key="i" /> -->
-
-                Entar ni
+                <CarCard v-for="car in cars" :key="car.id" :car="car" />
             </div>
         </div>
 

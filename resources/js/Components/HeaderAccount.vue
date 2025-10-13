@@ -90,11 +90,22 @@ const avatarColor = computed(() =>
         <DropdownMenuContent>
             <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
             <DropdownMenuSeparator />
+
+            <Link
+                :href="route('dashboard')"
+                v-if="['admin', 'staff'].includes(user.role)"
+            >
+                <DropdownMenuItem class="cursor-pointer hover:text-black">
+                    Dashboard
+                </DropdownMenuItem>
+            </Link>
+
             <Link :href="route('profile.edit')">
                 <DropdownMenuItem class="cursor-pointer hover:text-black">
                     Profile
                 </DropdownMenuItem>
             </Link>
+
             <Link
                 :href="route('logout')"
                 as="button"
