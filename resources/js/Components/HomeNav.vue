@@ -18,7 +18,7 @@ const [isOpen, toggleOpen] = useToggle(false);
                 <div class="flex items-center">
                     <Link :href="route('home')" class="flex items-center">
                         <img
-                            src="img/Mobilin-Logo.png"
+                            src="/img/Mobilin-Logo.png"
                             alt="Mobilin"
                             class="h-12 w-12 mr-2 rounded-full"
                         />
