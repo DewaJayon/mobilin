@@ -1,6 +1,9 @@
 <script setup>
 import HomeFooter from "@/Components/HomeFooter.vue";
 import HomeNav from "@/Components/HomeNav.vue";
+
+import { Toaster } from "@/Components/ui/sonner";
+import "vue-sonner/style.css";
 </script>
 
 <template>
@@ -9,4 +12,6 @@ import HomeNav from "@/Components/HomeNav.vue";
         <slot />
         <HomeFooter />
     </div>
+
+    <Toaster rich-colors position="top-right" />
 </template>
