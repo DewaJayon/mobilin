@@ -22,7 +22,7 @@ import {
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <Link :href="route('dashboard')">
+                        <Link :href="route('dashboard.index')">
                             <BreadcrumbLink> Dashboard </BreadcrumbLink>
                         </Link>
                     </BreadcrumbItem>

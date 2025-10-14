@@ -92,7 +92,7 @@ const avatarColor = computed(() =>
             <DropdownMenuSeparator />
 
             <Link
-                :href="route('dashboard')"
+                :href="route('dashboard.index')"
                 v-if="['admin', 'staff'].includes(user.role)"
             >
                 <DropdownMenuItem class="cursor-pointer hover:text-black">
