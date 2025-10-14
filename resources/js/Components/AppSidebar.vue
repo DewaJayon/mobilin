@@ -21,13 +21,13 @@ const user = usePage().props.auth.user;
 const general = [
     {
         title: "Dashboard",
-        routeName: "dashboard",
+        routeName: "dashboard.index",
         icon: LayoutDashboard,
         roles: ["admin", "staff"],
     },
     {
         title: "User",
-        routeName: "#",
+        routeName: "dashboard.user.index",
         icon: UserRound,
         roles: ["admin"],
     },

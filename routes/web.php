@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\CatalogController;
 use App\Http\Controllers\Home\ContactController;
@@ -18,8 +19,18 @@ Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact');
 Route::post('/kontak/send', [ContactController::class, 'send'])->name('contact.send');
 
-Route::prefix('dashboard')->middleware(['auth', 'role:admin, staff'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::prefix('dashboard')->middleware(['auth'])->group(function () {
+
+    // Dashboard Route
+    Route::middleware(['role:admin, staff'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    });
+
+    // User Route
+    Route::name('dashboard.')->group(function () {
+        Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('user.reset-password');
+        Route::resource('user', UserController::class)->middleware(['role:admin']);
+    });
 });
 
 Route::middleware('auth')->group(function () {
