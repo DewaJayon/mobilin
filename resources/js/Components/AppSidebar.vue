@@ -1,5 +1,6 @@
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
+import { filterMenuByRole } from "@/lib/utils";
 
 import {
     SidebarContent,
@@ -13,8 +14,7 @@ import {
     SidebarHeader,
 } from "@/Components/ui/sidebar";
 
-import { LayoutDashboard, UserRound } from "lucide-vue-next";
-import { filterMenuByRole } from "@/lib/utils";
+import { Car, LayoutDashboard, List, UserRound } from "lucide-vue-next";
 
 const user = usePage().props.auth.user;
 
@@ -29,6 +29,15 @@ const general = [
         title: "User",
         routeName: "dashboard.user.index",
         icon: UserRound,
+        roles: ["admin"],
+    },
+];
+
+const manageCar = [
+    {
+        title: "Kategori Mobil",
+        routeName: "dashboard.category.index",
+        icon: List,
         roles: ["admin"],
     },
 ];
@@ -53,6 +62,37 @@ const general = [
                     <SidebarMenu>
                         <SidebarMenuItem
                             v-for="item in filterMenuByRole(general, user.role)"
+                            :key="item.title"
+                        >
+                            <SidebarMenuButton
+                                asChild
+                                :is-active="route().current(item.routeName)"
+                            >
+                                <Link
+                                    :href="
+                                        route().has(item.routeName)
+                                            ? route(item.routeName)
+                                            : '#'
+                                    "
+                                >
+                                    <component :is="item.icon" />
+                                    <span>{{ item.title }}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarGroup>
+                <SidebarGroupLabel> Manajemen Mobil </SidebarGroupLabel>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        <SidebarMenuItem
+                            v-for="item in filterMenuByRole(
+                                manageCar,
+                                user.role
+                            )"
                             :key="item.title"
                         >
                             <SidebarMenuButton
