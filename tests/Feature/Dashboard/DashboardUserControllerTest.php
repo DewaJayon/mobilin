@@ -69,6 +69,66 @@ it('admin can search user by role', function () {
     $response->assertOk();
 });
 
+it('renders user index page with pagination', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    User::factory(15)->create();
+
+    $response = $this->actingAs($admin)
+        ->get(route('dashboard.user.index'));
+
+    $response->assertOk();
+
+    $response->assertInertia(
+        fn(AssertInertia $page) =>
+        $page->component('Dashboard/User/Index')
+            ->has('users.data') // user data
+            ->has('users.links') // pagination links
+    );
+});
+
+it('can search users by name, email, or role', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    User::factory()->create(['name' => 'Jane Doe', 'email' => 'jane@example.com', 'role' => 'staff']);
+    User::factory()->create(['name' => 'John Admin', 'email' => 'admin@example.com', 'role' => 'admin']);
+    User::factory()->create(['name' => 'Customer X', 'email' => 'cx@example.com', 'role' => 'customer']);
+
+    $response = $this->actingAs($admin)
+        ->get(route('dashboard.user.index', ['search' => 'Jane']));
+
+    $response->assertInertia(
+        fn(AssertInertia $page) =>
+        $page->component('Dashboard/User/Index')
+            ->where('users.data.0.name', 'Jane Doe')
+    );
+
+    $response = $this->actingAs($admin)
+        ->get(route('dashboard.user.index', ['search' => 'admin']));
+
+    $response->assertInertia(
+        fn(AssertInertia $page) =>
+        $page->component('Dashboard/User/Index')
+            ->where('users.data.0.role', 'admin')
+    );
+});
+
+it('respects per_page parameter', function () {
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    User::factory(25)->create();
+
+    $response = $this->actingAs($admin)
+        ->get(route('dashboard.user.index', ['per_page' => 5]));
+
+    $response->assertInertia(
+        fn(AssertInertia $page) =>
+        $page->component('Dashboard/User/Index')
+            ->where('users.per_page', 5)
+    );
+});
+
 it('admin can create user', function () {
     $admin = User::factory()->create(['role' => 'admin']);
 
