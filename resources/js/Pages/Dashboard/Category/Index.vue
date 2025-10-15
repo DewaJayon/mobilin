@@ -3,7 +3,7 @@ import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
 import { Separator } from "@/Components/ui/separator";
 import { DataTable } from "@/Components/ui/data-table";
-import { userColumns } from "./Partials/userColumn";
+import CategoryCreateForm from "./Form/CategoryCreateForm.vue";
 
 import {
     Breadcrumb,
@@ -13,10 +13,10 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/Components/ui/breadcrumb";
-import UserCreateForm from "./Form/UserCreateForm.vue";
+import { categoryColumn } from "./Partials/categoryColumn";
 
 const props = defineProps({
-    users: {
+    carCategories: {
         type: Object,
         required: true,
     },
@@ -49,16 +49,16 @@ const props = defineProps({
             <div class="rounded-xl bg-muted/50 h-full p-4">
                 <div class="flex justify-between items-center">
                     <h4 class="font-semibold">User</h4>
-                    <UserCreateForm />
+                    <CategoryCreateForm />
                 </div>
                 <Separator class="my-4" />
 
                 <div class="mt-4">
                     <DataTable
-                        :data="users.data"
-                        :columns="userColumns"
-                        :route-name="'dashboard.user.index'"
-                        :pagination="users"
+                        :data="carCategories.data"
+                        :columns="categoryColumn"
+                        :route-name="'dashboard.category.index'"
+                        :pagination="carCategories"
                     />
                 </div>
             </div>

@@ -17,6 +17,14 @@ class CarCategory extends Model
         'description',
     ];
 
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function sluggable(): array
     {
         return [

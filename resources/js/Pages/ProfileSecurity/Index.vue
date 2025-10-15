@@ -99,7 +99,7 @@ const updatePassword = () => {
                                 for="newPassword"
                                 class="block text-sm font-semibold text-muted-foreground"
                             >
-                                Password Saat Ini
+                                Password Baru
                             </Label>
                             <div class="relative flex items-center">
                                 <Input
@@ -127,7 +127,7 @@ const updatePassword = () => {
                                 for="confirmPassword"
                                 class="block text-sm font-semibold text-muted-foreground"
                             >
-                                Password Saat Ini
+                                Konfirmasi Password
                             </Label>
                             <div class="relative flex items-center">
                                 <Input

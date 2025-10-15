@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Home\AboutController;
@@ -30,6 +31,11 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::name('dashboard.')->group(function () {
         Route::patch('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('user.reset-password');
         Route::resource('user', UserController::class)->middleware(['role:admin']);
+    });
+
+    // Category Route
+    Route::name('dashboard.')->group(function () {
+        Route::resource('category', CategoryController::class)->middleware(['role:admin']);
     });
 });
 
